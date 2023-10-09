@@ -7,7 +7,7 @@ def main():
         os.system('clear')
         print('''
 Instruções do Jogo: 
--> Você controla o X e a IA controla o O.
+-> Você controla o O e a IA controla o X.
 -> Você começa jogando e a cada jogada sua a IA faz uma jogada.
 -> Para jogar vocêdeve escolher em qul linha e em qual coluna você deseja inseriri o X.
 -> Para vencer você deve completar uma linha, coluna ou diagonal com X.

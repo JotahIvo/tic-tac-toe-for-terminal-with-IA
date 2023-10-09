@@ -39,21 +39,27 @@ def verify_victory(board, player):
         return 0  
 
 
-def ia(board):
+def ia_play(board, player):
     possibilities = all_possibilities(board)
     best_position = None
-    max_score = None
+    max_score = -1000
 
     for possibilitie in possibilities:
-        board[possibilitie[0]][possibilitie[1]] = "O"
-        score = minimax(board)
+        board[possibilitie[0]][possibilitie[1]] = player
+        score = minimax(board, player)
         board[possibilitie[0]][possibilitie[1]] = " "
 
-        if max_score is None:
+        if max_score == -1000:
             max_score = score
             best_position = possibilitie
-        else:
-            
+        elif player == "X":
+            if score > max_score:
+                max_score = score
+                best_position = possibilitie
+        elif jogador == "O":
+            if score < max_score:
+                max_score = score
+                best_position = possibilitie
 
     return best_position
 
@@ -69,5 +75,31 @@ def all_possibilities(board):
     return positions
 
 
-def minimax(board):
+def minimax(board, player):
+    winner_x = verify_victory(board, "X")
+    winner_o = verify_victory(board, "O")
+    if winner_x == 1 or winner_o == -1:
+        if winner_x == 1:
+            return 1
+        if winner_o == -1:
+            return -1
 
+    player = "X" if player == "O" else "O"
+
+    possibilities = all_possibilities(board)
+    max_score = -1000
+    for possibilitie in possibilities:
+        board[possibilitie[0]][possibilitie[1]] = player
+        score = minimax(board, player)
+        board[possibilitie[0]][possibilitie[1]] = " "
+
+        if max_score == -1000:
+            max_score = score
+        elif player == "X":
+            if score > max_score:
+                max_score = score
+        elif player == "O":
+            if score < max_score:
+                max_score = score
+
+    return max_score

@@ -1,11 +1,11 @@
 import os, sys
 import random  
-from ia import ia, minimax
+from ia import ia_play
 
 
 class TicTacToeGame:
     def __init__(self):
-        self.player = 'X' #indica de quem é a jogada
+        self.player = "X" #indica de quem é a jogada
         self.attempts = 9
         self.current_attempt = 0
         self.tictactoe = [
@@ -16,7 +16,7 @@ class TicTacToeGame:
 
 
     def print_interface(self):
-        os.system('clear')
+        os.system("clear")
         print("    0   1   2")
         print("0:  " + self.tictactoe[0][0] + " | " + self.tictactoe[0][1] + " | " + self.tictactoe[0][2])
         print("   -----------")
@@ -45,6 +45,7 @@ class TicTacToeGame:
         return [row, column]    
 
 
+    #1: X venceu, -1: O venceu, 0: empate
     def verify_victory(self):
         #verificar linhas:
         for i in range(3):
@@ -88,14 +89,14 @@ class TicTacToeGame:
 
     def run_game(self):
         while self.current_attempt <= self.attempts:
-            os.system('clear')
+            os.system("clear")
             self.print_interface()
-            if self.player == "X":
+            if self.player == "O":
                 row = int(input("Linha: "))
                 column = int(input("Coluna: "))
                 position = [row, column]
             else:
-                position = ia(self.tictactoe)
+                position = ia_play(self.tictactoe, self.player)
                 #position = self.random_play()
                 
             self.refresh_tictactoe(position[0], position[1])
@@ -107,10 +108,9 @@ class TicTacToeGame:
             self.player = "X" if self.player == "O" else "O"
             self.current_attempt += 1
  
-        print('\nacabou\n')
-        if self.verify_victory() == 1:
+        if self.verify_victory() == -1:
             print("\nParabéns, você conseguiu vencer a máquina!!!")
-        elif self.verify_victory() == -1:
+        elif self.verify_victory() == 1:
             print("\nPelo visto a IA é mais inteligente do que você! Tente novamente HAHAHA")
         else:
             print("\nEmpate! Melhor do que perder, não é mesmo?")
