@@ -87,17 +87,38 @@ class TicTacToeGame:
         return 0
 
 
+    def verify_input(self, row, column):
+        if row > 2 or column > 2:
+            return False
+        
+        if self.tictactoe[row][column] != " ":
+            return False
+        
+        return True
+
+
     def run_game(self):
         while self.current_attempt <= self.attempts:
             os.system("clear")
             self.print_interface()
+
+            if self.current_attempt == self.attempts:
+                break
+
             if self.player == "O":
                 row = int(input("Linha: "))
                 column = int(input("Coluna: "))
+
+                while self.verify_input(row, column) == False:
+                    os.system("clear")
+                    self.print_interface()
+                    print("Input inválido, tente novamente!")
+                    row = int(input("Linha: "))
+                    column = int(input("Coluna: "))
+
                 position = [row, column]
             else:
                 position = ia_play(self.tictactoe, self.player)
-                #position = self.random_play()
                 
             self.refresh_tictactoe(position[0], position[1])
 
@@ -108,6 +129,7 @@ class TicTacToeGame:
             self.player = "X" if self.player == "O" else "O"
             self.current_attempt += 1
  
+
         if self.verify_victory() == -1:
             print("\nParabéns, você conseguiu vencer a máquina!!!")
         elif self.verify_victory() == 1:

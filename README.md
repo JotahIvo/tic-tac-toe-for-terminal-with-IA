@@ -4,7 +4,7 @@
 > O programa está em português, porém o código está em inglês
 
 ## Como utilizar no seu terminal?
-### Instalando as bibliotecas necessárias
+### Instalando o jogo no seu terminal
 ```bash
 $ git clone https://github.com/JotahIvo/tic-tac-toe-for-terminal-with-IA.git
 $ cd tic-tac-toe-for-terminal-with-IA
